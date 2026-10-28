@@ -17,7 +17,9 @@
 
 // STEP 1: Get the "Shout" button by its ID ("btnShout")
 //         using document.getElementById()
-
+document.getElementById('btnShout').addEventListener('click', function(){
+    outShout.innerHTML = shoutInput.value.toUpperCase() + "!"; 
+})
 // STEP 2: Add a click event listener to the button.
 //         Inside the listener function:
 //         a) Get the text from the input with ID "shoutInput"
@@ -28,8 +30,54 @@
 //            using .innerHTML
 //
 //         Example: "hello" → "HELLO!"
+document.getElementById('btnCalc').addEventListener('click', function(){
+    let sizes = document.getElementsByName("rg")
+    let selected = 0
+    for (let i =0;i<sizes.length;i++){
+        if (sizes[i].checked){
+            selected = parseFloat(sizes[i].value)
+        }
+    }
+    let count = 0
+    let toppings = document.getElementsByName("cb")
+    for (let i =0;i<toppings.length;i++){
+        if (toppings[i].checked){
+            count++
+        }
+    }
+    let toppingCost = count*0.50
 
+    let servicefee=0;
+    let service =document.getElementById("serviceSelect").value
+    if (service==='dinein'){
+        servicefee=0
+    }else if (service === 'takeout'){
+        servicefee=1.50}
+        else if (service==='delivery'){
+            servicefee=3.00
+    }
+let total = selected + toppingCost + servicefee
 
+let customerName=document.getElementById("myInput").value.trim()
+if (customerName===""){
+    customerName = "Customer"
+}
+document.getElementById("myPara").innerHTML = customerName + ", your total is $" + total.toFixed(2)
+
+})
+
+document.getElementById('clearBtn').addEventListener('click', function(){
+
+   document.getElementById("myInput").value = ""
+   document.getElementById("r3").checked= true
+   
+   let toppings = document.getElementsByName("cb")
+   for (let i=0;i<toppings.length;i++){
+    toppings[i].checked = false
+   }
+   document.getElementById("serviceSelect").value = "dinein"
+   document.getElementById("myPara").innerHTML = ""
+})
 // ============================================
 //  MAIN: Pizza Builder
 // ============================================
